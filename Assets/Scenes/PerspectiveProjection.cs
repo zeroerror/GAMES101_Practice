@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraOrthographicProjection : MonoBehaviour
+public class PerspectiveProjection : MonoBehaviour
 {
     public float width = 800;
     public float height = 600;
@@ -15,8 +15,6 @@ public class CameraOrthographicProjection : MonoBehaviour
 
     public BoxCollider box;
     public Vector3 boxPos => box.transform.position;
-
-    Matrix4x4 projection;
 
     void Start()
     {
@@ -127,33 +125,22 @@ public class CameraOrthographicProjection : MonoBehaviour
 
     Vector3 GetScreenPos(Vector3 worldPos)
     {
-        // 正交投影矩阵
-        projection = CreateOrthographic(
-        -(width_half), +(width_half),
-        -(height_half), +(height_half),
-        near, far);
+        // 压缩投影矩阵和正交投影矩阵
+        Matrix4x4 projection1 = Utils.CreatePerspectiveProjection(near, far);
+        Matrix4x4 projection2 = Utils.CreateOrthographicProjection(
+         -(width_half), +(width_half),
+         -(height_half), +(height_half),
+         near, far);
+        Matrix4x4 finalProjection = projection2 * projection1;
 
         // 将投影矩阵和视图矩阵相乘
         Matrix4x4 viewMatrix = Matrix4x4.TRS(-camPos, camRot, Vector3.one);
         Matrix4x4 worldToViewMatrix = viewMatrix * Matrix4x4.TRS(worldPos, Quaternion.identity, Vector3.one);
-        Matrix4x4 result = projection * worldToViewMatrix;
+        Matrix4x4 result = finalProjection * worldToViewMatrix;
         Vector3 screenPos = new Vector3(result[0, 3] * width_half, result[1, 3] * height_half, result[2, 3]);
+        screenPos.z = 0;
         return screenPos;
     }
 
-    Matrix4x4 CreateOrthographic(float left, float right, float bottom, float top, float near, float far)
-    {
-        Matrix4x4 result = new Matrix4x4();
-
-        result[0, 0] = 2.0f / (right - left);
-        result[1, 1] = 2.0f / (top - bottom);
-        result[2, 2] = 2.0f / (near - far);
-        result[0, 3] = (left + right) / (left - right);
-        result[1, 3] = (bottom + top) / (bottom - top);
-        result[2, 3] = (near + far) / (near - far);
-        result[3, 3] = 1.0f;
-
-        return result;
-    }
 
 }

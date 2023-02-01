@@ -309,14 +309,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954624594}
-  m_LocalRotation: {x: 0.9247153, y: -0.18907996, z: -0.32577977, w: 0.054937378}
-  m_LocalPosition: {x: -6, y: -22, z: 213}
+  m_LocalRotation: {x: 0.33323327, y: -0.21811181, z: 0.07953708, w: 0.91381437}
+  m_LocalPosition: {x: -0.32, y: 0, z: 86}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -1.237, y: -141.433, z: -157.321}
+  m_LocalEulerAnglesHint: {x: 40.07, y: -26.849, z: 0}
 --- !u!1 &1166011275
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 1166011276}
   - component: {fileID: 1166011277}
   m_Layer: 0
-  m_Name: CameraOrthographicProjection
+  m_Name: PerspectiveProjection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -359,11 +359,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166011275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed191c4c4ce1f9c44858a87e8eb9ca61, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b12dbd7f1053e9498e9d4024d5d999a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 800
   height: 600
-  near: 0.1
-  far: 1000
+  near: 1
+  far: 100
   box: {fileID: 954624595}
